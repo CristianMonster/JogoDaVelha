@@ -1,0 +1,47 @@
+import java.util.Scanner;
+
+public class JogoDaVelha_Jogador {
+
+    private JogoDaVelha_Mapa mapa;
+    private char letra = 'X';
+
+    public JogoDaVelha_Jogador(JogoDaVelha_Mapa mapa){
+        this.mapa = mapa;
+    }
+
+    public boolean joga(Scanner teclado){
+        Scanner jogada = teclado;
+        int linha = 0;
+        int coluna = 0;
+        boolean jogadaValida = false;
+
+        while(!jogadaValida){
+            do {
+                System.out.println("linha: ");
+                linha = jogada.nextInt();
+                if (linha > 2)
+                    System.out.println("Posição da linha incorreta!");
+            } while (linha > 2);
+
+            do {
+                System.out.println("coluna: ");
+                coluna = jogada.nextInt();
+                if (coluna > 2)
+                    System.out.println("Posição da coluna incorreta! ");
+            } while (coluna > 2);
+
+            //Depois de solicitar a jogada, ele verifica se ela é válida.
+            jogadaValida = mapa.jogar(linha, coluna, letra);
+
+            //Se o retorno for falso, significa que essa posição já foi utilizada
+            if(!jogadaValida){
+                System.out.println("Essa posição já foi utilizada!");
+            }
+        }
+        if(mapa.ganhou(letra)){
+            System.out.println("... Jogador GANHOU!");
+            return true;    
+        }
+        return false;
+    }    
+}
